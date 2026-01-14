@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Awareness Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        :root {
+            --primary: #ff4757;
+            --accent: #ffa502;
+            --bg: #1e272e;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #ced4da;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 71, 87, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(105, 92, 254, 0.1) 0%, transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .dashboard {
+            width: 100%;
+            max-width: 600px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .icon-header { margin-bottom: 20px; color: var(--text-dim); opacity: 0.5; }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .header p { color: var(--text-dim); font-size: 1rem; margin-bottom: 25px; }
+
+        .divider {
+            border-top: 1px dashed var(--glass-border);
+            margin: 20px 0;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .card-top svg { width: 16px; height: 16px; color: var(--text-dim); }
+
+        .card-label { font-size: 0.7rem; color: var(--text-dim); font-weight: 600; }
+
+        .card-value {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #f1f2f6;
+            background: rgba(255,255,255,0.05);
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .status-bar {
+            background: rgba(46, 213, 115, 0.1);
+            border: 1px solid rgba(46, 213, 115, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #2ed573;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .dot { width: 8px; height: 8px; background: #2ed573; border-radius: 50%; box-shadow: 0 0 10px #2ed573; }
+
+        .edu-section {
+            margin-top: 20px;
+            text-align: justify;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 25px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+        .edu-title { color: #ffa502; font-size: 1rem; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; text-align: left; }
+        .edu-text { font-size: 0.85rem; color: var(--text-dim); line-height: 1.7; margin-bottom: 15px; }
+        .edu-list { font-size: 0.85rem; color: var(--text-dim); line-height: 1.7; padding-left: 20px; }
+        .edu-list li { margin-bottom: 8px; }
+
+        @media (max-width: 480px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="icon-header"><i data-lucide="list"></i></div>
+    
+    <div class="header">
+        <h1>Data Anda 'Bocor'? Tenang, Ini Hanya Simulasi!..</h1>
+        <p>This is Only for Educational Purpose</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div id="statusBox" class="status-bar">
+        <div class="dot"></div> Data synced to Google Sheets successfully
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div class="card-top"><i data-lucide="shield"></i> <span class="card-label">IPv4 Address Anda:</span></div>
+            <div id="ip" class="card-value">Scanning...</div>
+        </div>
+        <div class="card">
+            <div class="card-top"><i data-lucide="map-pin"></i> <span class="card-label">Perkiraan Lokasi:</span></div>
+            <div id="location" class="card-value">Locating...</div>
+        </div>
+        <div class="card">
+            <div class="card-top"><i data-lucide="monitor"></i> <span class="card-label">Sistem Operasi:</span></div>
+            <div id="os" class="card-value">Detecting...</div>
+        </div>
+        <div class="card">
+            <div class="card-top"><i data-lucide="globe"></i> <span class="card-label">Browser Anda:</span></div>
+            <div id="browser" class="card-value">Detecting...</div>
+        </div>
+        <div class="card">
+            <div class="card-top"><i data-lucide="wifi"></i> <span class="card-label">ISP / Jaringan:</span></div>
+            <div id="isp" class="card-value">Identifying...</div>
+        </div>
+        <div class="card">
+            <div class="card-top"><i data-lucide="cpu"></i> <span class="card-label">Arsitektur CPU:</span></div>
+            <div id="device" class="card-value">Analyzing...</div>
+        </div>
+    </div>
+
+    <div class="edu-section">
+        <div class="edu-title"><i data-lucide="info" style="width:18px"></i> TAHUKAH ANDA?</div>
+        <p class="edu-text">
+            Hanya dengan mengakses sebuah tautan, pemilik situs web dapat secara otomatis menarik data teknis perangkat Anda tanpa memerlukan persetujuan manual. Data seperti IP Address dapat digunakan untuk melacak perkiraan lokasi fisik dan penyedia internet yang Anda gunakan.
+        </p>
+        <div class="edu-title" style="color: #2ed573; margin-top: 10px;"><i data-lucide="shield-check" style="width:18px"></i> CARA MELINDUNGI DIRI:</div>
+        <ul class="edu-list">
+            <li><b>Gunakan VPN:</b> Untuk mengenkripsi koneksi dan menyembunyikan alamat IP asli Anda.</li>
+            <li><b>Cek URL:</b> Selalu periksa nama domain sebelum mengklik (misal: g00gle.com vs google.com).</li>
+            <li><b>Mode Incognito:</b> Membantu membatasi pelacakan cookie pada browser.</li>
+            <li><b>Waspada Shortlink:</b> Tautan yang disingkat sering digunakan untuk menyembunyikan tujuan asli.</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    lucide.createIcons();
+
+    // URL Google Apps Script Anda
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbz20KYnHlIKsGS13KT2T77TOvcvZTHeESOaFcakW9ULU7FhWzNr37C6jbuH9AwznOHf/exec';
+
+    async function sendToDatabase(payload) {
+        try {
+            await fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(payload),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            document.getElementById('statusBox').style.cssText = 'display: flex;';
+        } catch (err) { console.error('Error sending data:', err); }
+    }
+
+    function getSpecs() {
+        const ua = navigator.userAgent;
+        let os = "Other";
+        if (ua.indexOf("Win") != -1) os = "Windows";
+        if (ua.indexOf("Mac") != -1) os = "macOS";
+        if (ua.indexOf("Android") != -1) os = "Android";
+        if (ua.indexOf("like Mac") != -1) os = "iOS";
+
+        let browser = "Web Browser";
+        if(ua.includes("Chrome")) browser = "Chrome";
+        else if(ua.includes("Firefox")) browser = "Firefox";
+        else if(ua.includes("Safari")) browser = "Safari";
+
+        document.getElementById('os').innerText = os;
+        document.getElementById('browser').innerText = browser;
+        document.getElementById('device').innerText = navigator.platform;
+        return { os, browser, platform: navigator.platform };
+    }
+
+    async function initAnalysis() {
+        const specs = getSpecs();
+        try {
+            // Ambil IPv4
+            const ipRes = await fetch('https://api4.ipify.org?format=json');
+            const ipData = await ipRes.json();
+            const ipv4 = ipData.ip;
+
+            // Ambil Lokasi & ISP
+            const locRes = await fetch(`https://ipapi.co/${ipv4}/json/`);
+            const data = await locRes.json();
+            
+            const fullData = {
+                ip: ipv4,
+                location: `${data.city}, ${data.country_name}`,
+                isp: data.org,
+                os: specs.os,
+                browser: specs.browser,
+                device: specs.platform
+            };
+
+            document.getElementById('ip').innerText = fullData.ip;
+            document.getElementById('location').innerText = fullData.location;
+            document.getElementById('isp').innerText = fullData.isp;
+
+            // Kirim ke Google Sheets
+            sendToDatabase(fullData);
+        } catch (e) {
+            document.getElementById('ip').innerText = "Gagal mengambil data";
+        }
+    }
+
+    window.onload = initAnalysis;
+</script>
+</body>
+</html>
